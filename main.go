@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/fterrag/go-docker-example/user"
 )
@@ -9,5 +9,5 @@ import (
 func main() {
 	u := user.User{NameFirst: "John", NameLast: "Smith"}
 
-	fmt.Printf("Hello %s!\n", u.GetFullName())
+	log.Printf("Hello %s!\n", u.GetFullName())
 }
