@@ -2,12 +2,9 @@
 
 docker build -t app-test --target builder . || exit 1
 
-# Start the app test container, run unit tests, and publish test coverage to Coveralls.
-CONTAINER_ID=$(docker run -d app-test tail -f /dev/null) || exit 1
-docker exec $CONTAINER_ID go test -v ./... || exit 1
-docker exec $CONTAINER_ID goveralls -repotoken $COVERALLS_TOKEN || exit 1
-
-docker stop $CONTAINER_ID
+# Run unit tests and publish test coverage to Coveralls.
+docker run app-test go test -v ./... || exit 1
+docker run app-test goveralls -repotoken $COVERALLS_TOKEN || exit 1
 
 # Build the app container.
 docker build -t app . || exit 1
