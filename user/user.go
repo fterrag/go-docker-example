@@ -6,7 +6,7 @@ type User struct {
 	NameLast  string
 }
 
-// GetFullName returns the first name and last name of the user.
+// GetFullName returns the first and last name of the user.
 func (u *User) GetFullName() string {
 	return u.NameFirst + " " + u.NameLast
 }
