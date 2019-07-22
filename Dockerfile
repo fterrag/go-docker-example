@@ -1,20 +1,20 @@
-FROM golang:1.10.3-alpine as builder
+FROM golang:1.12-alpine as builder
 
-WORKDIR /go/src/github.com/fterrag/go-docker-example
+ENV GO111MODULE=on
+
+WORKDIR /app
 COPY . .
 
-RUN apk --no-cache add git
+RUN apk --no-cache add git alpine-sdk build-base gcc
 
-RUN go get -u github.com/golang/dep/cmd/dep \
+RUN go get \
     && go get golang.org/x/tools/cmd/cover \
     && go get github.com/mattn/goveralls
-
-RUN dep ensure
 
 RUN go build -o example cmd/example/main.go
 
 FROM alpine:latest
 RUN apk --no-cache add ca-certificates
 WORKDIR /root/
-COPY --from=builder /go/src/github.com/fterrag/go-docker-example/example .
+COPY --from=builder /app/example .
 CMD ["./example"]

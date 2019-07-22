@@ -9,6 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// TestMain is an example test for the purpose of test coverage.
 func TestMain(t *testing.T) {
 	var buf bytes.Buffer
 
